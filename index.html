@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUMAN GAMES // NOW RECRUITING</title>
+    <style>
+        :root {
+            --neon-green: #00ff66;
+            --dark-void: #0a0a0c;
+            --cyber-pink: #ff0055;
+            --terminal-amber: #ffb000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--dark-void);
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Scanline / CRT Monitor Effect Overlay */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 99999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Matrix Rain Background Canvas */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* Header Style & Glitch Animation */
+        .glitch-title {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--neon-green);
+            margin-bottom: 0.5rem;
+            position: relative;
+            animation: textShadow 1.5s infinite;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--cyber-pink);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 3rem;
+            font-weight: bold;
+            text-shadow: 0 0 5px var(--cyber-pink);
+        }
+
+        /* Manifesto Board */
+        .manifesto-box {
+            background: rgba(10, 10, 12, 0.85);
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
+            padding: 2.5rem;
+            max-width: 800px;
+            text-align: left;
+            margin-bottom: 3rem;
+            border-radius: 4px;
+        }
+
+        .manifesto-box h2 {
+            color: var(--terminal-amber);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--terminal-amber);
+            padding-bottom: 0.5rem;
+        }
+
+        .manifesto-box p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            color: #d1d1d6;
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        /* CTA Burner Buttons */
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            background: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--neon-green);
+            color: var(--dark-void);
+            box-shadow: 0 0 25px var(--neon-green);
+            transform: scale(1.05);
+        }
+
+        .btn-alt {
+            border-color: var(--cyber-pink);
+            color: var(--cyber-pink);
+            box-shadow: 0 0 10px rgba(255, 0, 85, 0.3);
+        }
+
+        .btn-alt:hover {
+            background: var(--cyber-pink);
+            color: #fff;
+            box-shadow: 0 0 25px var(--cyber-pink);
+        }
+
+        /* Footer Telemetry */
+        .footer-stats {
+            margin-top: 4rem;
+            font-size: 0.8rem;
+            color: #555;
+            letter-spacing: 1px;
+        }
+
+        /* Keyframe Over-the-Top Animations */
+        @keyframes textShadow {
+            0% { text-shadow: 0 0 10px var(--neon-green), 2px 2px 0 var(--cyber-pink); }
+            50% { text-shadow: 0 0 20px var(--neon-green), -2px -2px 0 var(--cyber-pink); }
+            100% { text-shadow: 0 0 10px var(--neon-green), 2px 2px 0 var(--cyber-pink); }
+        }
+
+        @media (max-width: 768px) {
+            .glitch-title { font-size: 2.5rem; }
+            .subtitle { font-size: 1.1rem; }
+            .manifesto-box { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="container">
+        <header>
+            <h1 class="glitch-title">Human Matrix Games</h1>
+            <p class="subtitle">// Made by humans. For humans. No algorithms allowed.</p>
+        </header>
+
+        <main>
+            <section class="manifesto-box">
+                <h2>[ MANIFESTO_VER_1.04 ]</h2>
+                <p>The industry is broken. Games are being designed by engagement algorithms, monetized by spreadsheets, and optimized to drain wallets instead of sparking imagination. </p>
+                <p>We don't build "retention loops." We build <span class="highlight">realities</span>. We make unapologetic, high-octane, soul-stirring interactive art for <span class="highlight">actual people</span> who remember what it feels like to lose themselves in a world built by hand.</p>
+                <p>We are expanding the core cell. No corporate bloat. No useless meetings. Just pure, unadulterated engineering, storytelling, and design physics.</p>
+            </section>
+
+            <div class="cta-group">
+                <a href="mailto:your-signal-fire@domain.com?subject=I AM A HUMAN WHO BUILDS GAMES" class="btn">Transmit Credentials</a>
+                <a href="#manifesto" class="btn btn-alt" onclick="alert('ENCRYPTED COMMS INITIATED: Find us on the local network frequency or drop a line via the Transmit button.')">Read the Intel</a>
+            </div>
+        </main>
+
+        <footer class="footer-stats">
+            <p>LATENCY: LOCALHOST // STATUS: RECRUITING // NO THIRD-PARTY TRACKERS DETECTED</p>
+        </footer>
+    </div>
+
+    <script>
+        // Matrix Rain Background Effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const alphabet = katakana.split('');
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+
+        const draw = () => {
+            ctx.fillStyle = 'rgba(10, 10, 12, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff66';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet[Math.floor(Math.random() * alphabet.length)];
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        };
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        setInterval(draw, 30);
+    </script>
+</body>
+</html>
